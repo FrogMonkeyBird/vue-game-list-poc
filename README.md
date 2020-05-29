@@ -18,8 +18,8 @@ npm run build
 ## Note on Detailes
 - Make sure to mouse over both "regular" and "hot" games, to reveal the _different hover effects_.
 - Is the brightness of the screen hurting your eyes? Turn on _Dark Mode_ to soften the glow ;).
-- Responsize grid with fixed image ratio, to keep page from jumping when images are loaded.
-- Responsive headings resize depending on the _vw_ (viewport width) values.
+- Responsive grid with _fixed image ratio_, to keep page from jumping when images are loaded.
+- Responsive headings resize depending on _vw_ (viewport width) values.
 
 ## File structure
 

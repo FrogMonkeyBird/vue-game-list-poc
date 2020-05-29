@@ -1,5 +1,4 @@
-﻿// Set a default for "$breakpoints", which will be overridden by the following import statement.
-// breakpoints is used in "./utils/mixin.scss" - mq($breakpoint)
+﻿// breakpoints is used in "./utils/mixin.scss" - mq($breakpoint)
 $breakpoints: (
     "xxs": 320,
     "xs": 480,
@@ -10,8 +9,9 @@ $breakpoints: (
     "xxl": 1900,
     "max": 2540
 );
-/* // Import breakpoints from the configuration file. This is possible through the use of
-// a JSON importer found here: https://github.com/Updater/node-sass-json-importer
+/* // Idealy breakpoints should be imported from a config-file (ex settings.json), so that they can be shared between both scss- and js-files.
+This is possible through the use of a JSON importer found here: https://github.com/Updater/node-sass-json-importer
+Unfortunately I haven't yet gotting this to work with weppack
 @import "../settings.json"; */
 
 //
@@ -54,7 +54,7 @@ $font__head: 'Macondo', cursive;
 
 $grid__gutter-size: 20px;
 
-$horizontalPadding: 200px; // pagePadding at 2560px screenwidth
+$horizontalPadding: 200px; // pagePadding at initial design screenwidth (2560px)
 $horizontalPadding--mobile: 30px;
 $horizontalPaddingVw: pixelToVw($horizontalPadding);
 $horizontalPaddingVw--sm: pixelToVw(($horizontalPadding / 2));
