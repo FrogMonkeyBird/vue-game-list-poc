@@ -1,0 +1,59 @@
+
+/// Strip the unit from the given number
+///
+/// @group mixins and tools
+/// @returns {number} - The number without the unit.
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+/// Convert a pixel-size to em, based on an optional context.
+///
+/// @group mixins and tools
+/// @returns {string} The converted unit
+///
+/// @example font-size: em(16px);
+/// @example width: em(240px, 18px);
+@function em($pixels, $context: $font-size__root) {
+    $pixels: strip-unit($pixels);
+    $context: strip-unit($context);
+    $ratio: $pixels / $context;
+    @if ($context == $font-size__root) {
+        @return $ratio * 1rem;
+    } @else {
+        @return $ratio * 1em;
+    }
+}
+
+/// Get a breakpoint's size from its name.
+///
+/// @group mixins and tools
+/// @access private
+/// @returns {string|boolean} - Breakpoint size if it exists, otherwise **false**
+@function get-breakpoint($breakpoint) {
+
+    @if map-has-key($breakpoints, $breakpoint) {
+        @return inspect(map-get($breakpoints, $breakpoint));
+    }
+
+    @else {
+        @warn "No value found for `#{$breakpoint}`.";
+        @return false;
+    }
+}
+
+@function pixelToPercent($pixels, $designWidth: 1920) {
+    @return percentage(strip-unit($pixels) / strip-unit($designWidth));
+}
+
+@function pixelToVw($pixels, $designWidth: 1920) {
+    @return strip-unit($pixels) / strip-unit($designWidth) * 100vw;
+}
+
+@function pixelToVh($pixels, $designHeight: 1080) {
+    @return strip-unit($pixels) / strip-unit($designHeight) * 100vh;
+}

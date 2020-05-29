@@ -1,0 +1,161 @@
+﻿//
+// Mixins
+//
+// Reminder: Will only be output to compiled code when used
+// --------------------------------------------------
+
+@mixin absoluteCenter() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+/// Clean a button of its default browser styling.
+@mixin clean-button {
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    border: 0;
+    outline: none;
+    padding: 0;
+    background: transparent;
+}
+
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    background-repeat: repeat-x;
+}
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    background-repeat: repeat-x;
+}
+
+
+// Media query manager.
+// @param {String} $breakpoint - Breakpoint or pixel value (with px unit)
+// @requires $breakpoints variable
+// Example: @include mq(sm){}
+// or @include mq(sm, lg){}
+
+@mixin mq($breakpoint, $max: null) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @if $max {
+            @media (min-width: #{map-get($breakpoints, $breakpoint)}px) and (max-width: #{map-get($maxBreakpoints, $max)}px ) {
+                @content;
+            }
+        } @else {
+            @media (min-width: #{map-get($breakpoints, $breakpoint)}px) {
+                @content;
+            }
+        }
+    } @else {
+        @if $max {
+            @media (min-width: $breakpoint) and (max-width: $max ) {
+                @content;
+            }
+        } @else {
+            @media (min-width: $breakpoint) {
+                @content;
+            }
+        }
+    }
+}
+
+// Media query MAX manager.
+// @param {String} $breakpoint - Breakpoint
+// @requires $breakpoints variable
+// Example: @include mq-max(sm){}
+
+@mixin mq-max($breakpoint) {
+    @if map-has-key($maxBreakpoints, $breakpoint) {
+        @media (max-width: #{map-get($maxBreakpoints, $breakpoint)}px) {
+            @content;
+        }
+    }
+}
+
+/// @param {string} $minPixels - First breakpoint
+/// @param {string} $maxPixels [null] - Second breakpoint
+/// @example
+///   @include mq-height(200px) {
+///       font-size: 1.5em;
+///   }
+///   @include mq-height(200px, 768px) {
+///       // Put styling here, that will be applied when the height of the browser window
+///       // is more than or equal to the height of 200px and less than that of 768px.
+///   }
+/// @output A media-query with a min-height or a min-height and a max-height.
+@mixin mq-height($minPixels, $maxPixels: null) {
+
+    @if $maxPixels {
+        @if $minPixels {
+            @media (min-height: $minPixels) and (max-height: $maxPixels) {
+                @content;
+            }
+        }
+        @else {
+            @media (max-height: $maxPixels) {
+                @content;
+            }
+        }
+    } @else {
+        @media (min-height: $minPixels) {
+            @content;
+        }
+    }
+}
+
+@mixin mobileLandscape() {
+    @media (min-width: 320px) and (max-width: 736px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+
+// Placeholder text
+@mixin placeholder($color: inherit, $alpha: 0.5) {
+    &::placeholder {
+        color: $color;
+        opacity: $alpha;
+        @content;
+    }
+}
+
+/// Set aspect ratio as `padding-top`
+/// @param {umber} $x - width
+/// @param {umber} $y - height
+/// @example @include ratio(16, 9);
+@mixin ratio($x, $y) {
+    padding-top: percentage($y / $x);
+}
+
+
+/// Set font-size relative to the viewport
+/// @param {umber} $pxSize - font-size at design screen size
+/// @param {umber} $designSize - The width of the design af this font-size
+/// @example @include responsiveFontSize(140, 1024);
+@mixin responsiveFontSize($pxSize, $designSize: 1920) {
+    $percentage : ($pxSize / $designSize) * 100;
+    font-size: $percentage + 0vw;
+}
+
+/// Visually hide an element, but keep it accessible to screen readers.
+/// @group mixins and tools
+@mixin visuallyhidden {
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

@@ -1,0 +1,107 @@
+@import "../base/variables";
+@import "../utils/mixins";
+
+.btn {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    padding: $grid__gutter-size/2 $grid__gutter-size;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    transition: background-color 0.3s $easeOutQuart, transform 0.2s $easeOutQuart, border 0.2s $easeOutQuart;
+
+    &__close {
+        position: absolute;
+        top: -20px;
+        right: 0px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid $color__brown;
+        transition: all 0.5s $easeOutQuart;
+
+        &:before,
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            height: 50%;
+            left: 50%;
+            top: 50%;
+            background-color: #000;
+            width: 2px;
+        }
+
+        &:before {
+            transform: translate(-50%,-50%) rotate(45deg);
+        }
+
+        &:after {
+            transform: translate(-50%,-50%) rotate(-45deg);
+        }
+
+        &:hover,
+        &:focus {
+            border-color: $color__gold--dust;
+            background-color: lighten($color__brown, 20%);
+
+            &:before,
+            &:after {
+                background-color: $color__gold--dark;
+            }
+        }
+    }
+
+
+    &__switch {
+        padding: 0 0 0 40px;
+        position: absolute;
+        top: calc(100% + #{$verticalPadding});
+        right: 0;
+        transform: translateY(-100% - #{$grid__gutter-size});
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            transition: transform .3s $easeOutExpo, background-color .3s $easeOutQuart;
+        }
+
+        &:before {
+            content:"";
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 30px;
+            border-radius: 9px;
+            border: none !important;
+            background-color: $color__brown !important;
+            border: 1px solid $color__brown;
+        }
+
+        &:after {
+            content:"";
+            top: 9px;
+            left: 1px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: none;
+            background-color: #fff;
+            transform: translateY(-50%) scale(1);
+        }
+
+        &.on {
+            &:before {
+                background-color: $color__grey--light !important;
+            }
+
+            &:after {
+                background-color: $color__bg--dark;
+                transform: translateX(12px) translateY(-50%) scale(1);
+            }
+        }
+    }
+}

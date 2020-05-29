@@ -1,0 +1,10 @@
+﻿// Various variables and similar are available in the Normalize.scss library.
+// Inspect the following file to learn more!
+@import "../../node_modules/normalize-scss/sass/normalize";
+
+// Hint: The total size of normalize as is adds 2kb to your css payload - worth it if you ask me 8]
+
+@include normalize();
+
+// If you want to disable certain aspects of Normalize, you can remove them from the list of includes instead:
+//@include normalize((document,sections,grouping,links,text,embedded,forms,interactive,scripting,hidden));

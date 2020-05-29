@@ -1,0 +1,17 @@
+// Global scss functions, mixins and variables
+@import "utils/functions";
+@import "base/variables";
+@import "utils/mixins";
+
+// Normalize and basic helper-classes
+@import "base/normalize";
+@import "utils/helpers";
+
+// Basic element styles and fonts
+@import "base/base";
+
+// Global site components
+@import "components/app";
+@import "components/btn";
+@import "components/footer";
+@import "components/header";

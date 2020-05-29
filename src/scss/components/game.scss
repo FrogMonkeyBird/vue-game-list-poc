@@ -1,0 +1,261 @@
+// Global scss functions, mixins and variables
+@import "../utils/functions";
+@import "../base/variables";
+@import "../utils/mixins";
+@import "../utils/helpers";
+
+$content__border-size: 3px;
+
+.game {
+    position: relative;
+    padding: $grid__gutter-size / 2;
+    width: 100%;
+    cursor: pointer;
+    transition: color $darkMode__timeOut $easeOutQuart;
+
+    @include mq(xs) {
+        width: 50%;
+    }
+
+    @include mq(md) {
+        width: 33.333%;
+    }
+
+    @include mq(lg) {
+        width: 25%;
+    }
+
+    @include mq(xxl) {
+        width: 20%;
+    }
+
+    &__content {
+        position: relative;
+        height: 100%;
+        color: $color__gold--dark;
+        background-color: $color__grey--dark;
+        border-radius: 6px;
+        border: $content__border-size solid transparent;
+        padding: 15px - $content__border-size;
+        transition: all $darkMode__timeOut $easeOutQuart;
+        overflow: hidden;
+
+        h3, h2 {
+            position: relative;
+        }
+
+        .game--hot & {
+            border-color: $color__gold--dust;
+        }
+
+        .modal & {
+            color: $color__grey--light;
+        }
+    }
+
+    &__date {
+        position: absolute;
+        // Temp hacky placement...
+        top: 1em;
+        right: 5px;
+        margin-left: $grid__gutter-size;
+        font-size: 1.6rem;
+        color: $color__grey;
+
+        time {
+            color: $color__grey--light;
+            padding-left: 5px;
+        }
+    }
+
+    &__image {
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        background-color: $color__brown;
+
+        &, img {
+            transition: all $darkMode__timeOut $easeOutQuart;
+        }
+
+        .game--hot & {
+            border: 1px solid $color__gold--dust;
+        }
+
+        &:after {
+            /* Shine layer */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 2;
+            background-repeat: no-repeat;
+            background-position: -260px -180px;
+            background-size: 500px 500px;
+            mix-blend-mode: screen;
+            background-image: linear-gradient(
+                -65deg,
+                rgba(#fff, 0) 0%,
+                rgba(#fff, 0) 45%,
+                rgba(#fff, 0.5) 48%,
+                rgba(#fff, 0.8) 50%,
+                rgba(#fff, 0.5) 52%,
+                rgba(#fff, 0) 57%,
+                rgba(#fff, 0) 100%
+            );
+        }
+
+        .game--hot & {
+            /* Shine golden layer */
+            &:after {
+                background-image: linear-gradient(
+                    -65deg,
+                    rgba(#fff, 0) 0%,
+                    rgba(#fff, 0) 45%,
+                    rgba($color__gold, 0.5) 48%,
+                    rgba($color__gold--dust, 0.8) 50%,
+                    rgba($color__gold, 0.5) 52%,
+                    rgba(#fff, 0) 57%,
+                    rgba(#fff, 0) 100%
+                );
+            }
+        }
+    }
+
+    &__jackpot {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px 15px;
+        color: $color__gold;
+        text-align: right;
+        border-radius: 6px 0 0 0;
+        background-color: mix($color__gold--dark, $color__grey);
+        border-color: $color__gold--dark;
+        font-weight: 600;
+        font-size: 1.8rem;
+        text-shadow: 2px 1px 1px rgba(#000, 0.3);
+        transition: all $darkMode__timeOut $easeOutQuart;
+
+        span {
+            display: block;
+            font-size: 1.4rem;
+        }
+
+        .game--hot & {
+            border-width: 1px 0 0 1px;
+            border-color: $color__gold;
+            border-style: solid;
+        }
+
+        .modal & {
+            font-size: 2.4rem;
+            text-transform: uppercase;
+
+            span {
+                display: inline-block;
+                font-weight: 400;
+                font-size: 2rem;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    &__star {
+        position: absolute;
+        top: 0;
+        left: 40px;
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            background: linear-gradient(-5deg, white 2%, rgba(255, 255, 255, 0) 8%) 0 0/50% 50%,
+                        linear-gradient(-85deg, white 2%, rgba(255, 255, 255, 0) 8%) 0 0/50% 50%,
+                        linear-gradient(5deg, white 2%, rgba(255, 255, 255, 0) 8%) 100% 0/50% 50%,
+                        linear-gradient(85deg, white 2%, rgba(255, 255, 255, 0) 8%) 100% 0/50% 50%,
+                        linear-gradient(5deg, rgba(255, 255, 255, 0) 92%, white 98%) 0 100%/50% 50%,
+                        linear-gradient(85deg, rgba(255, 255, 255, 0) 92%, white 98%) 0 100%/50% 50%,
+                        linear-gradient(-5deg, rgba(255, 255, 255, 0) 92%, white 98%) 100% 100%/50% 50%,
+                        linear-gradient(-85deg, rgba(255, 255, 255, 0) 92%, white 98%) 100% 100%/50% 50%;
+            background-repeat: no-repeat;
+            width: 64px;
+            height: 64px;
+            top: -32px;
+            left: -32px;
+            transform: rotate(0) scale(0);
+        }
+    }
+
+    &__new {
+        position: absolute;
+        top: -16px;
+        left: -35px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.6rem;
+        text-align: center;
+        padding: 30px 30px 4px 30px;
+        background-color: $color__red--brand;
+        border-bottom: $color__red;
+        transform: rotate(-45deg);
+        z-index: 3;
+    }
+
+    &:hover,
+    &:focus {
+        .game__content {
+            box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+            transform: translate3d(0, -4px, 0) scale(1.02);
+            transition: transform 0.4s $easeOutQuart, box-shadow 0.6s $easeOutQuart;
+        }
+        .game__image:after {
+            animation: cardshine 1.2s $easeInOutQuart forwards;
+        }
+
+        .game__star {
+            animation: movestar 2s linear forwards 0.8s;
+
+            &:before {
+                animation: startwinkle 1.2s linear forwards 0.8s;
+            }
+        }
+    }
+}
+
+@keyframes cardshine {
+    0% {
+        opacity: 0;
+		background-position: -400px -180px;
+    }
+	50% {
+        opacity: 0.7;
+
+    }
+    100% {
+        opacity: 0;
+        background-position: 260px 120px;
+    }
+}
+
+@keyframes movestar {
+    0% {
+        transform: translateX(-30px); }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes startwinkle {
+    0% {
+        transform: rotate(0) scale(0); }
+    20% {
+        transform: rotate(36deg*4) scale(1); }
+    100% {
+        transform: rotate(360deg) scale(0);
+    }
+}

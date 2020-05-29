@@ -1,0 +1,118 @@
+﻿// Set a default for "$breakpoints", which will be overridden by the following import statement.
+// breakpoints is used in "./utils/mixin.scss" - mq($breakpoint)
+$breakpoints: (
+    "xxs": 320,
+    "xs": 480,
+    "sm": 768,
+    "md": 1024,
+    "lg": 1260,
+    "xl": 1660,
+    "xxl": 1900,
+    "max": 2540
+);
+/* // Import breakpoints from the configuration file. This is possible through the use of
+// a JSON importer found here: https://github.com/Updater/node-sass-json-importer
+@import "../settings.json"; */
+
+//
+// Colors
+// --------------------------------------------------
+
+$color__brown: #3d2611;
+$color__brown--dark: #2b2020;
+$color__grey: #7c7c7c;
+$color__grey--light: #e3e3e3;
+$color__grey--dark: #3a3a3a;
+$color__gold: #FFD700;
+$color__gold--dust: #DEBA13;
+$color__gold--dark: #DAA520; //#bf9641
+$color__red: #D12026;
+$color__red--brand: #A33129;
+
+// Having a hard time naming colors, try this:
+// http://chir.ag/projects/name-that-color/#F400FF
+
+//
+// Colors named by general usage
+// -------------------------------------------------
+
+$color__bg: #fff;
+$color__bg--dark: $color__grey--dark;
+$color__cta: $color__gold--dark;
+$color__text--main: $color__grey--dark;
+$color__text--head: $color__grey--dark;
+
+//
+// Fonts
+// --------------------------------------------------
+$font__base: 'Raleway', sans-serif;
+$font__head: 'Macondo', cursive;
+
+//
+// General padding
+// --------------------------------------------------
+
+$grid__gutter-size: 20px;
+
+$horizontalPadding: 200px; // pagePadding at 2560px screenwidth
+$horizontalPadding--mobile: 30px;
+$horizontalPaddingVw: pixelToVw($horizontalPadding);
+$horizontalPaddingVw--sm: pixelToVw(($horizontalPadding / 2));
+
+$verticalPadding: pixelToVh(60px);
+$verticalPadding--mobile: pixelToVh(40px);
+
+
+$wrap--max: #{map-get($breakpoints, max) + $horizontalPadding*2};
+
+//
+// Easing
+// --------------------------------------------------
+
+$easeInQuad: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$easeOutQuad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$easeInOutQuart: cubic-bezier(0.77, 0, 0.175, 1);
+$easeInQuint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$easeOutQuint:cubic-bezier(0.23, 1, 0.32, 1);
+$easeInOutQuint: cubic-bezier(0.86, 0, 0.07, 1);
+$easeInCubic: cubic-bezier(0.35, 0.52, 0.2, 1);
+$easeOutCubic: cubic-bezier(0.22, 0.61, 0.36, 1);
+$easeInExpo: cubic-bezier(.95, .05, .795, .035);
+$easeOutExpo: cubic-bezier(.19, 1, .22, 1);
+$easeInBack: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Dark Mode timing
+$darkMode__timeOut: 0.6s;
+$darkMode__timeIn: 0.4s;
+
+// The following looping mombojumbo is done to enable us to
+// use the same breakpoints for max-width media-queries:
+// @include mq-max(sm) {
+//    your-code: here;
+// }
+
+$maxBreakpoints: () !global;
+
+// We'll start by getting all the keys set in the breakpoints map.
+$breakpointKeys: (map-keys($breakpoints));
+
+@for $i from 1 through length($breakpointKeys) {
+
+    // First, get the name of the current breakpoint (ie. "md")
+    $breakpointKey: nth($breakpointKeys, $i);
+
+    // Then, get the screen size associated with it. (ie. "992")
+    $breakpointSize: map-get($breakpoints, $breakpointKey);
+
+    // If this is not the first entry, get the name of the previous entry, subtract one pixel from the current size,
+    // and set that as a "max-width" media query value.
+    @if $i > 1 {
+        $lastBreakpoint: nth($breakpointKeys, $i - 1);
+        // Define a new breakpoint map that we can merge into our maxBreakpoint map.
+        $newMaxBreakpointWidth: ("#{$lastBreakpoint}": (#{$breakpointSize - 1}));
+        $maxBreakpoints: map-merge($maxBreakpoints, $newMaxBreakpointWidth);
+    }
+}

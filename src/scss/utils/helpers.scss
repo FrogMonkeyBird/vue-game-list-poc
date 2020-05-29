@@ -1,0 +1,97 @@
+﻿//
+// HELPERS
+// Various helper classes for use in the DOM.
+// --------------------------------------------------
+
+/// Hide an element using this class.
+/// @group helpers
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.list-none {
+    padding: 0;
+    margin: 0;
+
+    &, li {
+        list-style: none;
+    }
+}
+
+.fit-parent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.grid {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-left: -$grid__gutter-size;
+    margin-right: -$grid__gutter-size;
+
+    &--center {
+        justify-content: center;
+    }
+
+    &--reverse {
+        flex-direction: row-reverse;
+    }
+}
+
+.h-pad {
+    padding-left: $horizontalPadding--mobile;
+    padding-right: $horizontalPadding--mobile;
+
+    @include mq(sm) {
+        padding-left: $horizontalPaddingVw--sm;
+        padding-right: $horizontalPaddingVw--sm;
+    }
+
+    @include mq(xl) {
+        padding-left: $horizontalPaddingVw; // Important set to overwrite padding-left: 0 on elements aligned to edge
+        padding-right: $horizontalPaddingVw; // Important set to overwrite padding-left: 0 on elements aligned to edge
+    }
+
+    @include mq($wrap--max) {
+        padding-left: $horizontalPaddingVw*2 !important;// Important set to overwrite padding-left: 0 on elements aligned to edge
+        padding-right: $horizontalPaddingVw*2 !important; // Important set to overwrite padding-left: 0 on elements aligned to edge
+    }
+}
+
+.v-pad {
+    padding-top: $verticalPadding--mobile;
+    padding-bottom: $verticalPadding--mobile;
+
+    @include mq(md) {
+        padding-top: $verticalPadding;
+        padding-bottom: $verticalPadding;
+    }
+}
+
+.ratio {
+    position: relative;
+
+    img {
+        @extend .fit-parent;
+    }
+
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+    &--1-1:before {
+        padding-top: 100%;
+    }
+
+    &--16-9:before {
+        padding-top: percentage(9/16);
+    }
+}
