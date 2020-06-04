@@ -36,7 +36,7 @@ import Game from './components/Game';
 import GameModal from './components/GameModal';
 
 export default {
-    name: "App",
+    name: 'App',
     components: {
         Game,
         GameModal
@@ -49,16 +49,16 @@ export default {
     },
     computed: {
         gamesByDecendingDates: function() {
-            return this.gamesData.sort((a, b) => new Date(b.created) - new Date(a.created));
+            return this.gamesData.slice(0).sort((a, b) => new Date(b.created) - new Date(a.created));
         },
         newGame: function() {
-            return this.gamesData.reduce((a, b) => (new Date(a.created) > new Date(b.created)) ? a : b)
+            return this.gamesData.reduce((a, b) => (new Date(a.created) > new Date(b.created)) ? a : b);
         }
     },
     data() {
         return {
-            msg: "Vue Game List",
-            subtext: "Prove of Concept",
+            msg: 'Vue Game List',
+            subtext: 'Prove of Concept',
             gamesData: data,
             activeGame: {},
             showModal: false,
