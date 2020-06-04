@@ -14,7 +14,6 @@
                     <h2>{{ gameData.title }} <div class="game__date">Created: <time>{{gameData.created}}</time></div></h2>
 
                     <div class="game__desc">{{gameData.description}}</div>
-
                 </div>
                 <button class="btn__close" @click="$emit('close')"></button>
             </div>
@@ -23,7 +22,7 @@
 </template>
 <script>
 export default {
-    name: "GameModal",
+    name: 'GameModal',
     props: {
         gameData: Object
     }

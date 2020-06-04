@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-    name: "Game",
+    name: 'Game',
     props: {
         gameData: Object,
         isNew: Boolean
