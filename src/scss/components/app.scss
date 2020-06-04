@@ -27,8 +27,10 @@
             transition: all $darkMode__timeIn $easeInQuad;
         }
 
-        .game__date time {
-            color: $color__grey--dark;
+        .game__date {
+            time {
+                color: $color__grey--dark;
+            }
         }
     }
 }
