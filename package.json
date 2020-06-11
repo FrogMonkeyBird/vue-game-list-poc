@@ -1,7 +1,7 @@
 {
   "name": "vue-game-list-poc",
   "description": "Simple POC demonstrating the use of Vue and Webpack to build an interactive list of games as a SPA.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Nicolaj Lund Hummel <frogmonkeybird@gmail.com>",
   "license": "MIT",
   "private": true,
